@@ -1,7 +1,6 @@
 package com.adaptionsoft.games.uglytrivia;
 
 import java.util.ArrayList;
-import java.util.LinkedList;
 
 public class Game {
 	ArrayList players = new ArrayList();
@@ -93,24 +92,33 @@ public class Game {
 
 	// randomly return a category
 	private String currentCategory() {
-		if (places[currentPlayer] == 0)
+		if (places[currentPlayer] == 0) {
 			return "Pop";
-		if (places[currentPlayer] == 4)
+		}
+		else if (places[currentPlayer] == 4) {
 			return "Pop";
-		if (places[currentPlayer] == 8)
+		}
+		else if (places[currentPlayer] == 8) {
 			return "Pop";
-		if (places[currentPlayer] == 1)
+		}
+		else if (places[currentPlayer] == 1) {
 			return "Science";
-		if (places[currentPlayer] == 5)
+		}
+		else if (places[currentPlayer] == 5) {
 			return "Science";
-		if (places[currentPlayer] == 9)
+		}
+		else if (places[currentPlayer] == 9) {
 			return "Science";
-		if (places[currentPlayer] == 2)
+		}
+		else if (places[currentPlayer] == 2) {
 			return "Sports";
-		if (places[currentPlayer] == 6)
+		}
+		else if (places[currentPlayer] == 6) {
 			return "Sports";
-		if (places[currentPlayer] == 10)
+		}
+		else if (places[currentPlayer] == 10) {
 			return "Sports";
+		}
 		return "Rock";
 	}
 
@@ -124,8 +132,9 @@ public class Game {
 
 				boolean winner = didPlayerWin();
 				currentPlayer++;
-				if (currentPlayer == players.size())
+				if (currentPlayer == players.size()) {
 					currentPlayer = 0;
+				}
 
 				return winner;
 			} else {
@@ -137,7 +146,7 @@ public class Game {
 
 		} else {
 
-			System.out.println("Answer was corrent!!!!");
+			System.out.println("Answer was correct!!!!");
 			purses[currentPlayer]++;
 			System.out.println(players.get(currentPlayer) + " now has "
 					+ purses[currentPlayer] + " Gold Coins.");

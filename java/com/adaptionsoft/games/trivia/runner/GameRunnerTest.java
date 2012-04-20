@@ -13,6 +13,7 @@ import org.junit.Test;
 import org.mockito.Mockito;
 
 import com.adaptionsoft.games.uglytrivia.Game;
+import com.adaptionsoft.games.uglytrivia.QuestionsDB;
 
 public class GameRunnerTest {
 	
@@ -66,7 +67,32 @@ public class GameRunnerTest {
 		Assert.assertTrue(outputStream.contains("Chet's new location is 6"));
 		Assert.assertTrue(outputStream.contains("Sports Question 3"));
 		Assert.assertTrue(outputStream.contains("Chet now has 6 Gold Coins."));
-	}	
+	}
+	
+	@Test
+	public void launchGameWithRollAlwaysTwoAndRandomAnswerOneWithCustomQuestions() {
+		
+		Random mockRandom = Mockito.mock(Random.class);
+		Mockito.when(mockRandom.nextInt()).thenReturn(1);
+		Random mockRandomRoll = Mockito.mock(Random.class);
+		Mockito.when(mockRandomRoll.nextInt()).thenReturn(2);
+		runner.setRand(mockRandom);
+		runner.setRandRoll(mockRandomRoll);
+		QuestionsDB mockQuestionsDB = Mockito.mock(QuestionsDB.class);
+		Mockito.when(mockQuestionsDB.getQuestion(Mockito.anyString())).thenReturn("This is a custom question");
+		
+		runner.getaGame().setQuestionsDB(mockQuestionsDB);
+		
+		runner.main(null);
+		
+		Assert.assertEquals(3,runner.getaGame().howManyPlayers());
+		Assert.assertTrue(runner.getaGame().isPlayable());
+		
+		Assert.assertTrue(outputStream.contains("Chet's new location is 6"));
+		Assert.assertFalse(outputStream.contains("Sports Question 3"));
+		Assert.assertTrue(outputStream.contains("Chet now has 6 Gold Coins."));
+		Assert.assertTrue(outputStream.contains("This is a custom question"));
+	}
 
 }
 
